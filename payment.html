@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Pilih Metode Pembayaran</h2>
+        <p>Pembayaran dapat melalui E-Wallet (OVO, ShopeePay) atau Virtual Account (BCA, BRI, Mandiri).</p>
+        
+        <div class="payment-methods">
+            <h3>Transfer Virtual Account</h3>
+            <label>
+                <input type="radio" name="payment" value="BCA">
+                <img src="bca-logo.png" alt="BCA" width="30"> BCA
+            </label>
+            <label>
+                <input type="radio" name="payment" value="BRI">
+                <img src="bri-logo.png" alt="BRI" width="30"> BRI
+            </label>
+            <label>
+                <input type="radio" name="payment" value="Mandiri">
+                <img src="mandiri-logo.png" alt="Mandiri" width="30"> Mandiri
+            </label>
+            
+            <h3>Bayar dengan E-Wallet</h3>
+            <label>
+                <input type="radio" name="payment" value="Dana">
+                <img src="dana-logo.png" alt="Dana" width="30"> Dana
+            </label>
+            <label>
+                <input type="radio" name="payment" value="OVO">
+                <img src="ovo-logo.png" alt="OVO" width="30"> OVO
+            </label>
+            <label>
+                <input type="radio" name="payment" value="ShopeePay">
+                <img src="shopeepay-logo.png" alt="ShopeePay" width="30"> ShopeePay
+            </label>
+            <label>
+                <input type="radio" name="payment" value="Cash"> Cash
+            </label>
+        </div>
+        
+        <div class="total-payment">
+            <h3>Total Pembayaran</h3>
+            <p id="total-payment-amount">Rp. 0</p>
+        </div>
+        <button class="pay-button" onclick="proceedToPayment()">Pay</button>
+    </div>
+</body>
+<script>
+    // Data layanan dengan harga
+    const servicePrices = {
+        BCA: 140000,
+        BRI: 135000,
+        Mandiri: 145000,
+        Dana: 130000,
+        OVO: 125000,
+        ShopeePay: 120000,
+        Cash: 150000
+    };
+
+    // Update total pembayaran
+    document.querySelectorAll('input[name="payment"]').forEach((input) => {
+        input.addEventListener('change', function() {
+            const selectedValue = this.value;
+            const totalAmount = servicePrices[selectedValue] || 0;
+            document.getElementById('total-payment-amount').textContent = `Rp. ${totalAmount.toLocaleString()}`;
+        });
+    });
+
+    // Tombol Pay
+    function proceedToPayment() {
+        const selectedMethod = document.querySelector('input[name="payment"]:checked');
+        if (selectedMethod) {
+            alert(`Anda memilih ${selectedMethod.value} dengan total pembayaran Rp. ${servicePrices[selectedMethod.value].toLocaleString()}`);
+            // Lanjutkan ke proses pembayaran
+        } else {
+            alert("Silakan pilih metode pembayaran terlebih dahulu.");
+        }
+    }
+</script>
+</html>
